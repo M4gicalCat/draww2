@@ -11,9 +11,9 @@ export default class Ellipse extends Shape{
     protected _centerOfRotation : number[]
     constructor(x:          number,
                 y:          number,
+                color:      string,
                 width:      number,
                 height:     number,
-                color:      string,
                 canvas:     Canvas,
                 startAngle?: number,
                 endAngle?:   number) {
@@ -21,8 +21,8 @@ export default class Ellipse extends Shape{
         this._color = color;
         this._width = width;
         this._height = height;
-        this._startAngle = startAngle ? startAngle : 0;
-        this._endAngle = endAngle ? endAngle : Math.PI * 2;
+        this._startAngle = startAngle?? 0;
+        this._endAngle = endAngle ?? Math.PI * 2;
         this._centerOfRotation = [width/2, height/2];
     }
 

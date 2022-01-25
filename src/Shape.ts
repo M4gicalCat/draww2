@@ -16,7 +16,7 @@ export default abstract class Shape{
         this._fillStyle = "fill";
         this._rotate = 0;
 
-        this._canvas.appendShape(this);
+        this._canvas.appendShapes(this);
     }
 
     /**

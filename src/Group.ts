@@ -26,48 +26,28 @@ export default class Group extends Shape{
     }
 
     /**
-     * Adds a specific Shape to the Group (removes it from the Canvas)
-     * @param s
-     */
-    public appendShape(s :Shape) :void{
-        this.canvas.removeShape(s);
-        this._shapes.push(s);
-    }
-
-    /**
      * Adds all Shapes to the Group (calls `appendShape()`)
      * @param s
      */
-    public appendShapes(s :Shape[]) :void{
+    public appendShapes(...s :Shape[]) :void{
         for (let i = 0 ; i < s.length; i++){
-            this.appendShape(s[i]);
+            this.canvas.removeShapes(s[i]);
+            this._shapes.push(s[i]);
         }
     }
 
     /**
-     * Removes the Shape from the Group and puts it back in the Canvas.
+     * Removes all Shapes from the Group and put them back in the Canvas
      * @param s
      */
-    public removeShape(s :Shape) :boolean{
-        for (let i = 0; i < this._shapes.length; i++) {
-            if (this._shapes[i] === s) {
-                this._shapes.splice(i, 1);
-                this.canvas.appendShape(s);
-                return true;
-            }
-        }
-        return false
-    }
-
-    /**
-     * Removes all Shapes from the Group and put them back in the Canvas (calls `removeShape()`)
-     * @param s
-     */
-    public removeShapes(s :Shape[]) :Shape[]{
+    public removeShapes(...s :Shape[]) :Shape[]{
         let result :Shape[] = [];
-        for (let i = 0; i < s.length; i++){
-            if (this.removeShape(s[i]))
-                result.push(s[i])
+        for (let i = 0; i < s.length; i++) {
+            const index = this._shapes.indexOf(s[i]);
+            if (index !== -1) {
+                this.canvas.appendShapes(...this._shapes.splice(index, 1));
+                result.push(s[i]);
+            }
         }
         return result;
     }
